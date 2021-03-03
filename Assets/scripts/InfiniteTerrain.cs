@@ -60,7 +60,7 @@ public class InfiniteTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunkDict.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord,chunkSize,transform, mapMaterial));
+                    terrainChunkDict.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, transform, mapMaterial));
                 }
             }
         }
@@ -76,13 +76,13 @@ public class InfiniteTerrain : MonoBehaviour
         MeshFilter meshFilter;
 
 
-        public TerrainChunk(Vector2 coord, int size,Transform parent, Material material)
+        public TerrainChunk(Vector2 coord, int size, Transform parent, Material material)
         {
 
             pos = coord * size;
             bounds = new Bounds(pos, Vector2.one * size);
 
-            Vector3 posv3 = new Vector3(pos.x, pos.y,0);
+            Vector3 posv3 = new Vector3(pos.x, pos.y, 0);
 
             meshObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
             meshRenderer = meshObject.GetComponent<Renderer>();
@@ -94,10 +94,10 @@ public class InfiniteTerrain : MonoBehaviour
             meshObject.transform.parent = parent;
             SetVisible(false);
 
-            mapGenerator.RequestMapData(pos,OnMapDataReceived);
+            mapGenerator.RequestMapData(pos, OnMapDataReceived);
         }
 
-        void OnMapDataReceived(MapData mapData,MapGenerator.DrawMode drawMode)
+        void OnMapDataReceived(MapData mapData, MapGenerator.DrawMode drawMode)
         {
             Texture2D texture;
             if (drawMode==MapGenerator.DrawMode.NoiseMap)
