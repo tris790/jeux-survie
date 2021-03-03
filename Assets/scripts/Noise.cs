@@ -12,13 +12,13 @@ public static class Noise
         System.Random prng = new System.Random(seed);
         Vector2[] octaveOffsets = new Vector2[octaves];
         float maxPossibleHeight = 0;
-        float amplitude = 1;
-        float frequency = 1;
+        float amplitude = 0;
+        float frequency;
 
         for (int i = 0; i < octaves; i++)
         {
-            float offsetX = prng.Next(-100000,100000)+offset.x;
-            float offsetY = prng.Next(-100000,100000)+offset.y;
+            float offsetX = -(prng.Next(-100000,100000)+offset.x);
+            float offsetY = -(prng.Next(-100000,100000)+offset.y);
            octaveOffsets[i] = new Vector2(offsetX, offsetY);
 
             maxPossibleHeight += amplitude;

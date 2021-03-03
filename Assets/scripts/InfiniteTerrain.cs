@@ -97,13 +97,14 @@ public class InfiniteTerrain : MonoBehaviour
             mapGenerator.RequestMapData(pos,OnMapDataReceived);
         }
 
-        void OnMapDataReceived(MapData mapData)
+        void OnMapDataReceived(MapData mapData,MapGenerator.DrawMode drawMode)
         {
-            Texture2D texture = TextureGenerator.TextureFromColorMap(mapData.colorMap, MapGenerator.mapChunkSize / 10, MapGenerator.mapChunkSize / 10);
+            Texture2D texture;
+            if (drawMode==MapGenerator.DrawMode.NoiseMap)
+                texture = TextureGenerator.TextureFromNoiseMap(mapData.heightMap);
+            else
+                texture = TextureGenerator.TextureFromColorMap(mapData.colorMap, MapGenerator.mapChunkSize / 10, MapGenerator.mapChunkSize / 10);
             meshRenderer.material.mainTexture = texture;
-            //mapDisplay.textureRenderers.Add(meshRenderer);
-            //mapDisplay.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, MapGenerator.mapChunkSize/10, MapGenerator.mapChunkSize/10));//
-            //Debug.Log("map data received");
         }
 
         public void UpdateTerrainChunk()
