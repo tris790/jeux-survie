@@ -30,9 +30,9 @@ public class MapGenerator : MonoBehaviour
     public TerrainType[] regions;
     public bool autoUpdate;
 
-    Queue<MapThreadInfo<MapData>> mapDataThreadInfos = new Queue<MapThreadInfo<MapData>>();
+    Queue<MapThreadInfo<MapData,DrawMode>> mapDataThreadInfos = new Queue<MapThreadInfo<MapData,DrawMode>>();
 
-    public void RequestMapData(Vector2 center,Action<MapData> callback)
+    public void RequestMapData(Vector2 center,Action<MapData,DrawMode> callback)
     {
         ThreadStart threadStart = delegate
         {
@@ -42,14 +42,14 @@ public class MapGenerator : MonoBehaviour
         new Thread(threadStart).Start();
     }
 
-    private void MapDataThread(Vector2 center, Action<MapData> callback)
+    private void MapDataThread(Vector2 center, Action<MapData,DrawMode> callback)
     {
         MapData mapData = GenerateMapData(center);
         //zone critique
         //évite l'appelle simultané entre 2 threead
         lock (mapDataThreadInfos) 
         {
-            mapDataThreadInfos.Enqueue(new MapThreadInfo<MapData>(callback, mapData));
+            mapDataThreadInfos.Enqueue(new MapThreadInfo<MapData,DrawMode>(callback, mapData,drawMode));
         }
     }
 
@@ -60,7 +60,7 @@ public class MapGenerator : MonoBehaviour
             for (int i = 0; i < mapDataThreadInfos.Count; i++)
             {
                 var threadInfo=mapDataThreadInfos.Dequeue();
-                threadInfo.callback(threadInfo.param);
+                threadInfo.callback(threadInfo.param,drawMode);
             }
         }
     }
@@ -103,14 +103,16 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    struct MapThreadInfo<T>
+    struct MapThreadInfo<T,DrawMode>
     {
-        public readonly Action<T> callback;
+        public readonly Action<T,DrawMode> callback;
         public readonly T param;
-        public MapThreadInfo(Action<T> callback,T param)
+        public readonly DrawMode param2;
+        public MapThreadInfo(Action<T,DrawMode> callback,T param,DrawMode param2)
         {
             this.callback = callback;
             this.param = param;
+            this.param2 = param2;
         }
     }
 
