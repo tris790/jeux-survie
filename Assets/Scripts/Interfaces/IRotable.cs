@@ -2,6 +2,6 @@
 {
     public interface IRotable
     {
-        void Rotate();
+        void Rotate(); // test
     }
 }
