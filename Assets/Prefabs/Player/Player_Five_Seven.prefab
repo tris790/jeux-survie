@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5713746815821472066}
   - component: {fileID: 2524092404932887084}
   - component: {fileID: 1760501055}
+  - component: {fileID: 1760501062}
+  - component: {fileID: 1760501063}
   m_Layer: 0
   m_Name: Player_Five_Seven
   m_TagString: Untagged
@@ -163,3 +165,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af6809e7c3a51b48b8e52dd0b73e2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 6
+--- !u!114 &1760501062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162878588504618894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3f51e883a3bb34db7efe697f2df25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1760501063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162878588504618894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49e6f31816690b6429b1f1c283bb9dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
