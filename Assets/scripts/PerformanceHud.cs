@@ -1,13 +1,19 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
 
 public class PerformanceHud : MonoBehaviour
 {
+    public GUIStyle dangerStyle;
+
+    public int statisticMenuPosX = 10;
+    public int statisticMenuPosY = 20;
+    public int boxWidth = 260;
+    public int statisticMenuPadding = 20;
+    public int lineHeight = 20;
+
     private float _cpuUsage = 0;
     private float _gpuUsage = 0;
     private float _gcTime = 0;
@@ -19,9 +25,6 @@ public class PerformanceHud : MonoBehaviour
     private TimeSpan _prevCPUPc;
     private TimeSpan _currCPUPc;
     private float _statsRefreshInterval = 0.5f;
-
-
-    public GUIStyle DangerStyle;
 
     class Statistic
     {
@@ -42,7 +45,7 @@ public class PerformanceHud : MonoBehaviour
         {
             Name = "Memory Usage",
             Value = () => $"{_memory}mb / {_systemMemory}mb",
-            Style = () => _memory > 150 ? DangerStyle : new GUIStyle()
+            Style = () => _memory > 150 ? dangerStyle : new GUIStyle()
         });
 
         InvokeRepeating("GetProcessorUsage", _statsRefreshInterval, _statsRefreshInterval);
@@ -58,16 +61,12 @@ public class PerformanceHud : MonoBehaviour
 
     void OnGUI()
     {
-        int yPos = 10;
-        int lineHeight = 20;
-        int boxWidth = 260;
-        int padding = 20;
-
-        GUI.Box(new Rect(10, yPos, boxWidth, _statistics.Count * lineHeight), "Statistics");
+        GUI.Box(new Rect(statisticMenuPosX, statisticMenuPosY, boxWidth, (_statistics.Count + 1) * lineHeight), "Statistics");
+        int yPos = statisticMenuPosY + 15;
         foreach (var stat in _statistics)
         {
             yPos += 15;
-            GUI.Label(new Rect(padding, yPos, boxWidth - padding * 2, lineHeight), $"{stat.Name}: {stat.Value()}", stat.Style());
+            GUI.Label(new Rect(statisticMenuPadding, yPos, boxWidth - statisticMenuPadding * 2, lineHeight), $"{stat.Name}: {stat.Value()}", stat.Style());
         }
     }
 
