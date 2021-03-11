@@ -5,25 +5,31 @@ using UnityEngine;
 [AddComponentMenu("Components/Movement Component")]
 public class MovementComponent : MonoBehaviour, IMoveable, IRotable
 {
-    public event Action<bool> AnimateMovement = delegate { };
-
     [HideInInspector]
     public float moveSpeed;
 
+    // Events
+    public event Action<bool> AnimateMovement = delegate { };
+
+    // Components
     private Rigidbody2D _rigidbody;
+    private InputComponent _input;
+
     private Vector2 _moveDirection;
     private bool _isMoving = false;
 
-    // Start is called before the first frame update
-    void Start()
+    // Is called after all objects are initialized
+    private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _input = GetComponent<InputComponent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessInputs();
+        _isMoving = (_input.Horizontal != 0 || _input.Vertical != 0);
+        _moveDirection = new Vector2(_input.Horizontal, _input.Vertical);
     }
 
     void FixedUpdate()
@@ -31,16 +37,6 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
         Move();
         AnimateMovement(_isMoving);
         Rotate();
-    }
-
-    // TODO : EGC move this in a InputComponent
-    void ProcessInputs()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-
-        _isMoving = (moveX != 0 || moveY != 0);
-        _moveDirection = new Vector2(moveX, moveY);
     }
 
     public void Move()
