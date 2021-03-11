@@ -24,12 +24,6 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         });
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public GameObject GetNextPooledObjectByTag(string tag)
     {
         GameObject item = _pooledObjects.Find(i => i.tag == tag && !i.activeInHierarchy);
