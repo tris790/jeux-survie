@@ -51,9 +51,8 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
     public void Rotate()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 5.23f;
-
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+
         mousePos.x = mousePos.x - objectPos.x;
         mousePos.y = mousePos.y - objectPos.y;
 
