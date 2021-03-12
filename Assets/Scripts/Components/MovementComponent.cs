@@ -28,8 +28,8 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
     // Update is called once per frame
     void Update()
     {
-        _isMoving = (_input.Horizontal != 0 || _input.Vertical != 0);
-        _moveDirection = new Vector2(_input.Horizontal, _input.Vertical);
+        _isMoving = (_input.horizontal != 0 || _input.vertical != 0);
+        _moveDirection = new Vector2(_input.horizontal, _input.vertical);
     }
 
     void FixedUpdate()

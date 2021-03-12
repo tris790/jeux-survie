@@ -3,8 +3,8 @@
 [AddComponentMenu("Components/Input Component")]
 public class InputComponent : MonoBehaviour
 {
-    public float Horizontal { get; set; }
-    public float Vertical { get; set; }
+    public float horizontal;
+    public float vertical;
 
     // TODO : EGC There will be several event action delegate like OnAttack, OnInteract ...
 
@@ -16,7 +16,7 @@ public class InputComponent : MonoBehaviour
 
     public void ProcessInputs()
     {
-        Horizontal = Input.GetAxisRaw("Horizontal");
-        Vertical = Input.GetAxisRaw("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
     }
 }
