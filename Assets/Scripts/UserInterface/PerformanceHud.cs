@@ -29,12 +29,10 @@ public class PerformanceHud : MonoBehaviour
     private TimeSpan _prevCPUPc;
     private TimeSpan _currCPUPc;
     private float _statsRefreshInterval = 0.5f;
-    private bool _isLoaded = false;
 
     void Start()
     {
         InvokeRepeating(nameof(GetProcessorUsage), _statsRefreshInterval, _statsRefreshInterval);
-        Invoke(nameof(UpdateIsLoaded), timeToLoadGame);
     }
 
     void Update()
@@ -69,11 +67,6 @@ public class PerformanceHud : MonoBehaviour
 
         TimeSpan newCPUTime = _currCPUPc - _prevCPUPc;
         _cpuUsage = (int)((100 * newCPUTime.TotalSeconds / _statsRefreshInterval) / Environment.ProcessorCount);
-    }
-
-    void UpdateIsLoaded()
-    {
-        _isLoaded = true;
     }
 }
 
