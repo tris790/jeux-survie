@@ -45,8 +45,6 @@ public class PerformanceHud : MonoBehaviour
         _usedMemory = Profiler.GetTotalAllocatedMemoryLong() / 1048576;
         _totalMemory = SystemInfo.systemMemorySize;
         _fps = 1.0f / _deltaTime;
-
-        
     }
 
     void OnGUI()
