@@ -21,6 +21,9 @@ public class PerformanceHud : MonoBehaviour
 
     private float _cpuUsage = 0;
     private float _renderTime = 0;
+    private long _usedMemory = 0;
+    private int _totalMemory = 0;
+    private float _fps = 0;
     private float _deltaTime = 0;
 
     private TimeSpan _prevCPUPc;
@@ -39,20 +42,22 @@ public class PerformanceHud : MonoBehaviour
         _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
 
         _renderTime = _deltaTime * 1000.0f;
-        var usedMemory = Profiler.GetTotalAllocatedMemoryLong() / 1048576;
-        var totalMemory = SystemInfo.systemMemorySize;
-        var fps = 1.0f / _deltaTime;
+        _usedMemory = Profiler.GetTotalAllocatedMemoryLong() / 1048576;
+        _totalMemory = SystemInfo.systemMemorySize;
+        _fps = 1.0f / _deltaTime;
 
-        // TODO: Tristan Trouver pourquoi une fois de temps en temps on buste de bcp le budget
-        //UnityEngine.Debug.Assert(!_isLoaded || _renderTime < renderTimeBudget, $"Render time failed to meet expectations {_renderTime}/{renderTimeBudget}");
+        
+    }
 
+    void OnGUI()
+    {
         cpuUsageTextElement.text = $"{_cpuUsage}%";
         renderTimeTextElement.text = $"{_renderTime}ms";
-        fpsTextElement.text = $"{fps}";
+        fpsTextElement.text = $"{_fps}";
         timePassedTextElement.text = $"{Time.time}s";
-        memoryTextElement.text = $"{usedMemory}mb / {totalMemory}mb";
+        memoryTextElement.text = $"{_usedMemory}mb / {_totalMemory}mb";
 
-        if (usedMemory > memoryBudget)
+        if (_usedMemory > memoryBudget)
             memoryTextElement.color = bustedColor;
     }
 
