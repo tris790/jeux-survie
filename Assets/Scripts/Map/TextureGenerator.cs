@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class TextureGenerator
 {
-    public static Texture2D TextureFromColorMap(Color[] colorMap,int width, int height)
+    public static Texture2D TextureFromColorMap(Color[] colorMap,int width, int height, Texture tex)
     {
-        Texture2D texture = new Texture2D(width, height);
+        Texture2D texture = (Texture2D)tex;
+        if(texture == null)
+        {
+            texture = new Texture2D(width, height);
+        }
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         texture.SetPixels(colorMap);
@@ -14,7 +18,7 @@ public class TextureGenerator
         return texture;
     }
 
-    public static Texture2D TextureFromNoiseMap(float[,] noiseMap)
+    public static Texture2D TextureFromNoiseMap(float[,] noiseMap, Texture tex)
     {
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
@@ -28,6 +32,6 @@ public class TextureGenerator
             }
         }
 
-        return TextureFromColorMap(colorMap,width,height);
+        return TextureFromColorMap(colorMap,width,height,tex);
     }
 }

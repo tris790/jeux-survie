@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d46727e7699c254e98880135f2e3810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawMode: 0
+  drawMode: 1
   normalizeMode: 1
   seed: 0
   mapWidth: 40
@@ -268,7 +268,7 @@ MonoBehaviour:
   - name: Water
     height: 1
     color: {r: 0.03529412, g: 0, b: 0.7921569, a: 0}
-  autoUpdate: 1
+  hotReload: 0
 --- !u!114 &680092085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee0c99a4da48a244a27d4c6f3b6fb3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxViewDst: 40
   viewer: {fileID: 1354362169}
   mapMaterial: {fileID: 2100000, guid: d59f8e17a4adce046b877d44ed0225e7, type: 2}
 --- !u!1 &812560425
@@ -481,6 +482,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5972713396405671085, guid: b902b0a9b9af8eb41a8d9160e596e35a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 178.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7710109410037641140, guid: b902b0a9b9af8eb41a8d9160e596e35a,
         type: 3}
       propertyPath: m_RootOrder
@@ -540,6 +546,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PerformanceHud
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710109410037641142, guid: b902b0a9b9af8eb41a8d9160e596e35a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710109410037641143, guid: b902b0a9b9af8eb41a8d9160e596e35a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b902b0a9b9af8eb41a8d9160e596e35a, type: 3}

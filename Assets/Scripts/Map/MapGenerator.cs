@@ -26,7 +26,7 @@ public class MapGenerator : MonoBehaviour
     public float lacunarity;
     public Vector2 offset;
     public TerrainType[] regions;
-    public bool autoUpdate;
+
 
     Queue<MapThreadInfo<MapData,GameObject, DrawMode>> mapDataThreadInfos = new Queue<MapThreadInfo<MapData,GameObject, DrawMode>>();
 
@@ -42,7 +42,7 @@ public class MapGenerator : MonoBehaviour
 
     private void MapDataThread(GameObject chunk,Vector2 center, Action<MapData,GameObject, DrawMode> callback)
     {
-        MapData mapData = GenerateMapData(center);
+        MapData mapData= GenerateMapData(center);
 
         // Zone critique
         // Evite l'appelle simultane entre 2 thread
@@ -54,14 +54,14 @@ public class MapGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (mapDataThreadInfos.Count > 0)
-        {
-            for (int i = 0; i < mapDataThreadInfos.Count; i++)
+            if (mapDataThreadInfos.Count > 0)
             {
-                var threadInfo = mapDataThreadInfos.Dequeue();
-                threadInfo.callback(threadInfo.mapData,threadInfo.chunk, drawMode);
+                for (int i = 0; i < mapDataThreadInfos.Count; i++)
+                {
+                    var threadInfo = mapDataThreadInfos.Dequeue();
+                    threadInfo.callback(threadInfo.mapData, threadInfo.chunk, drawMode);
+                }
             }
-        }
     }
 
     private MapData GenerateMapData(Vector2 center)
@@ -88,21 +88,6 @@ public class MapGenerator : MonoBehaviour
         }
 
         return new MapData(noiseMap, colorMap);
-    }
-
-    public void DrawMapInEditor()
-    {
-        MapData mapData = GenerateMapData(Vector2.zero);
-        MapDisplay display = FindObjectOfType<MapDisplay>();
-
-        if (drawMode == DrawMode.NoiseMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromNoiseMap(mapData.heightMap));
-        }
-        else if (drawMode == DrawMode.ColorMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, mapWidth, mapHeight));
-        }
     }
 
     struct MapThreadInfo<T, X, DrawMode>

@@ -12,36 +12,33 @@ public class InfiniteTerrain : MonoBehaviour
     public static Vector2 viewerPosition;
     static MapGenerator mapGenerator;
     static MapDisplay mapDisplay;
-    int chunkSize;
     int chunksVisibleInViewDst;
 
+    private ChunkUtility chunkUtil = new ChunkUtility();
     private Dictionary<Vector2, GameObject> terrainChunkDict = new Dictionary<Vector2, GameObject>();
-    private List<GameObject> terrainChunksVisibleLastUpdate = new List<GameObject>();
+    private List<Vector2> removeKey = new List<Vector2>();
 
 
     private void Start()
     {
-        chunkSize = MapGenerator.mapChunkSize;
         mapGenerator = FindObjectOfType<MapGenerator>();
         mapDisplay = FindObjectOfType<MapDisplay>();
-        chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / chunkSize);
+        chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / MapGenerator.mapChunkSize);
+        viewerPosition = new Vector2(viewer.position.x, viewer.position.y);
     }
 
     private void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.y);
-        UpdateVisibleChunks();
+            viewerPosition.Set(viewer.position.x, viewer.position.y);
+            UpdateVisibleChunks();
     }
 
     void UpdateVisibleChunks()
     {
-        //terrainChunksVisibleLastUpdate.Clear();
-        ChunkUtility chunkUtil = new ChunkUtility();
-        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / chunkSize);
-        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / chunkSize);
+        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / MapGenerator.mapChunkSize);
+        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / MapGenerator.mapChunkSize);
 
         //évite qu'un chunk reste afficher si le joueur est rendu trop loin pour le voir
-        List<Vector2> removeKey = new List<Vector2>();
         foreach (var lastChunk in terrainChunkDict)
         {
             Vector2 pos = new Vector2(currentChunkCoordX, currentChunkCoordY);
@@ -58,6 +55,7 @@ public class InfiniteTerrain : MonoBehaviour
         }
         removeKey.Clear();
 
+
         for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++)
         {
             for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++)
@@ -67,40 +65,35 @@ public class InfiniteTerrain : MonoBehaviour
                 if (chunk != null && !terrainChunkDict.ContainsKey(viewedChunkCoord))
                 {
                     terrainChunkDict.Add(viewedChunkCoord, chunk);
-                    chunkUtil.UpdateTerrainChunk(chunk, viewedChunkCoord, chunkSize, mapMaterial);
+                    chunkUtil.UpdateTerrainChunk(chunk, viewedChunkCoord, MapGenerator.mapChunkSize);
                 }
             }
         }
+
     }
 
     public class ChunkUtility
     {
+        Vector3 posv3 = new Vector3();
         void OnMapDataReceived(MapData mapData, GameObject chunk, MapGenerator.DrawMode drawMode)
         {
+            Renderer meshRenderer = chunk.GetComponent<Renderer>();
             Texture2D texture;
             if (drawMode == MapGenerator.DrawMode.NoiseMap)
-                texture = TextureGenerator.TextureFromNoiseMap(mapData.heightMap);
+                texture = TextureGenerator.TextureFromNoiseMap(mapData.heightMap, meshRenderer.material.mainTexture);
             else
-                texture = TextureGenerator.TextureFromColorMap(mapData.colorMap, MapGenerator.mapChunkSize / 10, MapGenerator.mapChunkSize / 10);
-            Renderer meshRenderer = chunk.GetComponent<Renderer>();
+                texture = TextureGenerator.TextureFromColorMap(mapData.colorMap, MapGenerator.mapChunkSize / 10, MapGenerator.mapChunkSize / 10, meshRenderer.material.mainTexture);
             meshRenderer.material.mainTexture = texture;
         }
 
-        public void UpdateTerrainChunk(GameObject chunk, Vector2 coord, int size, /*Transform parent,*/ Material material)
+        public void UpdateTerrainChunk(GameObject chunk, Vector2 coord, int size)
         {
             Vector2 pos = coord * size;
-
-            Vector3 posv3 = new Vector3(pos.x, pos.y, 0);
-
-            Renderer meshRenderer = chunk.GetComponent<Renderer>();
-            MeshFilter meshFilter = chunk.GetComponent<MeshFilter>();
-            meshRenderer.material = material;
+            posv3.Set(pos.x, pos.y, 0);
             chunk.transform.localScale = Vector3.one * size / 10.0f;
             chunk.transform.position = posv3;
-            //chunk.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
             mapGenerator.RequestMapData(chunk, pos, OnMapDataReceived);
             chunk.SetActive(true);
-
         }
     }
 }
