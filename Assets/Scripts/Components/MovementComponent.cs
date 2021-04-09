@@ -12,7 +12,7 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
     public event Action<bool> AnimateMovement = delegate { };
 
     // Components
-    private Rigidbody2D _rigidbody;
+    public Rigidbody2D rigidbody;
     private InputComponent _input;
 
     private Vector2 _moveDirection;
@@ -21,7 +21,7 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
     // Is called after all objects are initialized
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody = GetComponent<Rigidbody2D>();
         _input = GetComponent<InputComponent>();
     }
 
@@ -41,7 +41,7 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
 
     public void Move()
     {
-        _rigidbody.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
+        rigidbody.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
     }
 
     public void Rotate()
@@ -55,6 +55,6 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        _rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 }
