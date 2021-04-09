@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
 
     // Propriete de la map pouvant etre editer depuis l'editeur Unity
     public int seed;
-    // Must be a multiple of 10
+    // Grandeur d'un chunk. Must be a multiple of 10
     public const int mapChunkSize = 40;
     [Min(1)]
     public int mapWidth;
@@ -26,42 +26,42 @@ public class MapGenerator : MonoBehaviour
     public float lacunarity;
     public Vector2 offset;
     public TerrainType[] regions;
-    public bool autoUpdate;
 
-    Queue<MapThreadInfo<MapData, DrawMode>> mapDataThreadInfos = new Queue<MapThreadInfo<MapData, DrawMode>>();
 
-    public void RequestMapData(Vector2 center, Action<MapData, DrawMode> callback)
+    Queue<MapThreadInfo<MapData,GameObject, DrawMode>> mapDataThreadInfos = new Queue<MapThreadInfo<MapData,GameObject, DrawMode>>();
+
+    public void RequestMapData(GameObject chunk,Vector2 center, Action<MapData,GameObject, DrawMode> callback)
     {
         ThreadStart threadStart = delegate
         {
-            MapDataThread(center, callback);
+            MapDataThread(chunk,center, callback);
         };
 
         new Thread(threadStart).Start();
     }
 
-    private void MapDataThread(Vector2 center, Action<MapData, DrawMode> callback)
+    private void MapDataThread(GameObject chunk,Vector2 center, Action<MapData,GameObject, DrawMode> callback)
     {
-        MapData mapData = GenerateMapData(center);
+        MapData mapData= GenerateMapData(center);
 
         // Zone critique
         // Evite l'appelle simultane entre 2 thread
         lock (mapDataThreadInfos)
         {
-            mapDataThreadInfos.Enqueue(new MapThreadInfo<MapData, DrawMode>(callback, mapData, drawMode));
+            mapDataThreadInfos.Enqueue(new MapThreadInfo<MapData,GameObject, DrawMode>(callback, chunk, mapData, drawMode));
         }
     }
 
     private void Update()
     {
-        if (mapDataThreadInfos.Count > 0)
-        {
-            for (int i = 0; i < mapDataThreadInfos.Count; i++)
+            if (mapDataThreadInfos.Count > 0)
             {
-                var threadInfo = mapDataThreadInfos.Dequeue();
-                threadInfo.callback(threadInfo.param, drawMode);
+                for (int i = 0; i < mapDataThreadInfos.Count; i++)
+                {
+                    var threadInfo = mapDataThreadInfos.Dequeue();
+                    threadInfo.callback(threadInfo.mapData, threadInfo.chunk, drawMode);
+                }
             }
-        }
     }
 
     private MapData GenerateMapData(Vector2 center)
@@ -75,9 +75,10 @@ public class MapGenerator : MonoBehaviour
             {
                 float currentHeight = noiseMap[x, y];
 
-                for (int i = 0; i < regions.Length; i++)
+                colorMap[y * mapWidth + x] = regions[regions.Length - 1].color;
+                for (int i = regions.Length-1; i >= 0; i--)
                 {
-                    if (currentHeight <= regions[i].height)
+                    if (currentHeight >= regions[i].height)
                     {
                         colorMap[y * mapWidth + x] = regions[i].color;
                         break;
@@ -89,32 +90,19 @@ public class MapGenerator : MonoBehaviour
         return new MapData(noiseMap, colorMap);
     }
 
-    public void DrawMapInEditor()
+    struct MapThreadInfo<T, X, DrawMode>
     {
-        MapData mapData = GenerateMapData(Vector2.zero);
-        MapDisplay display = FindObjectOfType<MapDisplay>();
-
-        if (drawMode == DrawMode.NoiseMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromNoiseMap(mapData.heightMap));
-        }
-        else if (drawMode == DrawMode.ColorMap)
-        {
-            display.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, mapWidth, mapHeight));
-        }
-    }
-
-    struct MapThreadInfo<T, DrawMode>
-    {
-        public readonly Action<T, DrawMode> callback;
-        public readonly T param;
+        public readonly Action<T, X, DrawMode> callback;
+        public readonly T mapData;
+        public readonly X chunk;
         public readonly DrawMode param2;
 
-        public MapThreadInfo(Action<T, DrawMode> callback, T param, DrawMode param2)
+        public MapThreadInfo(Action<T, X, DrawMode> callback,X chunk, T mapData, DrawMode drawMode)
         {
             this.callback = callback;
-            this.param = param;
-            this.param2 = param2;
+            this.mapData = mapData;
+            this.chunk = chunk;
+            this.param2 = drawMode;
         }
     }
 
