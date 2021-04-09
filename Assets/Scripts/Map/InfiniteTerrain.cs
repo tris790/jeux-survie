@@ -29,8 +29,34 @@ public class InfiniteTerrain : MonoBehaviour
 
     private void Update()
     {
-            viewerPosition.Set(viewer.position.x, viewer.position.y);
-            UpdateVisibleChunks();
+        viewerPosition.Set(viewer.position.x, viewer.position.y);
+        UpdateVisibleChunks();
+        UpdateCheckTerrain();
+    }
+
+    void UpdateCheckTerrain()
+    {
+        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / MapGenerator.mapChunkSize);
+        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / MapGenerator.mapChunkSize);
+
+        int currentWorldChunkCoordX = Mathf.RoundToInt(viewerPosition.x / MapGenerator.mapChunkSize)* MapGenerator.mapChunkSize;
+        int currentWorldChunkCoordY = Mathf.RoundToInt(viewerPosition.y / MapGenerator.mapChunkSize)* MapGenerator.mapChunkSize;
+
+        int xlocal = Mathf.RoundToInt(viewerPosition.x) - currentWorldChunkCoordX;
+        int ylocal = Mathf.RoundToInt(viewerPosition.y) - currentWorldChunkCoordY;
+
+        Vector2 pos = new Vector2(currentChunkCoordX, currentChunkCoordY);
+        var chunk =terrainChunkDict[pos];
+        Renderer meshRenderer = chunk.GetComponent<Renderer>();
+        Texture2D tex = (Texture2D)meshRenderer.material.mainTexture;
+        if (tex!= null)
+        {
+            var x = tex.GetPixel(xlocal, ylocal);
+            var regions = mapGenerator.regions;
+            var watercolor = regions[regions.Length - 1].color;
+            if (x == watercolor)
+                Debug.Log(x);
+        }
     }
 
     void UpdateVisibleChunks()
@@ -39,9 +65,9 @@ public class InfiniteTerrain : MonoBehaviour
         int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / MapGenerator.mapChunkSize);
 
         //évite qu'un chunk reste afficher si le joueur est rendu trop loin pour le voir
+        Vector2 pos = new Vector2(currentChunkCoordX, currentChunkCoordY);
         foreach (var lastChunk in terrainChunkDict)
         {
-            Vector2 pos = new Vector2(currentChunkCoordX, currentChunkCoordY);
             if (lastChunk.Key.x < pos.x - chunksVisibleInViewDst || lastChunk.Key.y < pos.y - chunksVisibleInViewDst ||
                 lastChunk.Key.x > pos.x + chunksVisibleInViewDst || lastChunk.Key.y > pos.y + chunksVisibleInViewDst)
             {
