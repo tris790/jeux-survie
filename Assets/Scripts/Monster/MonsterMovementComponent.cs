@@ -3,28 +3,35 @@ using System;
 using UnityEngine;
 
 [AddComponentMenu("Components/Monster Movement Component")]
-public class MonsterMovementComponent : MonoBehaviour, IMoveable, IRotable
+public class MonsterMovementComponent : MonoBehaviour
 {
     public bool isMoving;
     public float moveSpeed;
     public event Action<bool> AnimateMovement = delegate { };
-    public Rigidbody2D rigidbody;
+    public Vector2 Position => transform.position;
     public Vector2 moveDirection;
+    private Rigidbody2D _rigidbody;
+        
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    public void Rotate(Quaternion angle)
+    {
+        transform.rotation = angle;
+        _rigidbody.transform.rotation = angle;
+    }
 
     public void Move()
     {
-        rigidbody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-    }
-
-    public void Rotate()
-    {
+        _rigidbody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
     private void Start()
     {
     }
 
-    // Update is called once per frame
     private void Update()
     {
     }
@@ -33,11 +40,5 @@ public class MonsterMovementComponent : MonoBehaviour, IMoveable, IRotable
     {
         Move();
         AnimateMovement(isMoving);
-        Rotate();
-    }
-
-    private void Awake()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
     }
 }
