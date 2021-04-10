@@ -3,17 +3,34 @@
 [AddComponentMenu("Player/Player")]
 public class Player : MonoBehaviour
 {
-    // TODO : EGC add this in a stats class
     public float moveSpeed;
+    public Vector2 Position => GetComponent<Rigidbody2D>().position;
 
-    // Components
-    private MovementComponent _movement;
+    private MovementComponent _movementComponent;
+    private HealthComponent _healthComponent;
 
-    // Is called after all objects are initialized
+    public void DealDamageToPlayer(int value)
+    {
+        _healthComponent.AddOrRemove(-value);
+    }
+
     private void Awake()
     {
-        _movement = GetComponent<MovementComponent>();
+        _movementComponent = GetComponent<MovementComponent>();
+        _healthComponent = GetComponent<HealthComponent>();
 
-        _movement.moveSpeed = moveSpeed;
+        _movementComponent.moveSpeed = moveSpeed;
+        _healthComponent.OnDeathEvent += OnPlayerDeath;
+    }
+
+    private void OnPlayerDeath(object sender, System.EventArgs e)
+    {
+        Debug.Log("The player died");
+    }
+
+    private void OnDestroy()
+    {
+        if (_healthComponent != null)
+            _healthComponent.OnDeathEvent -= OnPlayerDeath;
     }
 }
