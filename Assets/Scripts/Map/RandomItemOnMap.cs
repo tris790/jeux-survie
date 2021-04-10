@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RandomItemOnMap : MonoBehaviour
 {
+    [Min(1)]
     public float radius = 1;
     public Vector2 regionSize = new Vector2(MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
     public Transform pos;
@@ -31,28 +32,30 @@ public class RandomItemOnMap : MonoBehaviour
                 Sprite po = Sprite.Create(heart, new Rect(0, 0, heart.width, heart.height), new Vector2(heart.width/2,heart.height/2),100);
 
                 //GameObject.CreatePrimitive(PrimitiveType.);
-                srHeart.sprite = po;
-                srHeart.transform.position = new Vector3(point.x,point.y, 0);
+                //srHeart.sprite = po;
+                //srHeart.transform.position = new Vector3(position.x+point.x- regionSize.x/2, position.y+point.y- regionSize.y/2, 0);
                 //po.transform.eulerAngles=new Vector3(-90,0,0);
             }
         }
     }
 
-    //void OnValidate()
-    //{
-    //    Vector2 position = new Vector2(pos.transform.position.x, pos.transform.position.y);
-    //    points = PoissonDiscSampling.GeneratePoints(radius, regionSize, position, rejectionSamples);
-    //}
+    void OnValidate()
+    {
+        Vector2 position = new Vector2(pos.transform.position.x, pos.transform.position.y);
+        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, position, rejectionSamples);
+    }
 
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireCube(new Vector2(pos.transform.position.x, pos.transform.position.y), regionSize);
-    //    if (points != null)
-    //    {
-    //        foreach (Vector2 point in points)
-    //        {
-    //            Gizmos.DrawSphere(point, displayRadius);
-    //        }
-    //    }
-    //}
+    void OnDrawGizmos()
+    {
+        Vector2 position = new Vector2(pos.transform.position.x, pos.transform.position.y);
+
+        Gizmos.DrawWireCube(new Vector2(pos.transform.position.x, pos.transform.position.y), regionSize);
+        if (points != null)
+        {
+            foreach (Vector2 point in points)
+            {
+                Gizmos.DrawSphere(position + point - regionSize / 2, displayRadius);
+            }
+        }
+    }
 }
