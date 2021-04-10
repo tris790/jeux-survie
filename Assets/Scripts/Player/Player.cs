@@ -27,4 +27,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("The player died");
     }
+
+    private void OnDestroy()
+    {
+        if (_healthComponent != null)
+            _healthComponent.OnDeathEvent -= OnPlayerDeath;
+    }
 }

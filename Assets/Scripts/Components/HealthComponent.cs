@@ -46,4 +46,9 @@ public class HealthComponent : MonoBehaviour
         if (_isDirty)
             _spriteRenderer.color = Color.Lerp(Color.red, Color.green, CurrentHealth / MaxHealth);
     }
+
+    private void OnDestroy()
+    {
+        _healthBarPrefab.SetActive(false);
+    }
 }
