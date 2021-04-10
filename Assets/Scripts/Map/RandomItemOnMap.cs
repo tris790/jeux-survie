@@ -10,9 +10,9 @@ public class RandomItemOnMap : MonoBehaviour
     public Transform pos;
     public int rejectionSamples = 30;
     public float displayRadius = 1;
+    public List<Item> items;
     Texture2D heart;
     SpriteRenderer srHeart;
-    public List<Item> items;
 
     List<Vector2> points;
 
@@ -24,22 +24,29 @@ public class RandomItemOnMap : MonoBehaviour
 
     public void generateItem()
     {
-        Vector2 position = new Vector2(pos.transform.position.x, pos.transform.position.y);
-        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, position, rejectionSamples);
+        points = generateDot();
         if (points != null)
         {
             foreach (Vector2 point in points)
             {
+
                 //code popant les item sur la carte depuis une liste prochain pr
                 
             }
         }
     }
 
-    void OnValidate()
+    private List<Vector2> generateDot()
     {
         Vector2 position = new Vector2(pos.transform.position.x, pos.transform.position.y);
-        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, position, rejectionSamples);
+        int x = Mathf.RoundToInt(position.x / MapGenerator.mapChunkSize);
+        int y = Mathf.RoundToInt(position.y / MapGenerator.mapChunkSize);
+        return PoissonDiscSampling.GeneratePoints(radius, regionSize, position, (x + 1) + MapGenerator.mgseed * (y + 1), rejectionSamples);
+    }
+
+    void OnValidate()
+    {
+        points = generateDot();
     }
 
     void OnDrawGizmos()
