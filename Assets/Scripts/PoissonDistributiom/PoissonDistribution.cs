@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class PoissonDiscSampling
 {
 
-    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, int numSamplesBeforeRejection = 30)
+    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, Vector2 position, int numSamplesBeforeRejection = 30)
     {
         float cellSize = radius / Mathf.Sqrt(2);
 
@@ -37,9 +37,7 @@ public static class PoissonDiscSampling
             {
                 spawnPoints.RemoveAt(spawnIndex);
             }
-
         }
-
         return points;
     }
 
