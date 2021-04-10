@@ -9,6 +9,7 @@ TagManager:
   - PistolBullet
   - CurrentPlayerModel
   - PlayerFirePoint
+  - HealthBarMonster
   layers:
   - Default
   - TransparentFX

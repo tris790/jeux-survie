@@ -12,8 +12,8 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
     public event Action<bool> AnimateMovement = delegate { };
 
     // Components
-    private Rigidbody2D _rigidbody;
     private InputComponent _input;
+    private Rigidbody2D _rigidbody2D;
 
     private Vector2 _moveDirection;
     private bool _isMoving = false;
@@ -21,8 +21,8 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
     // Is called after all objects are initialized
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
         _input = GetComponent<InputComponent>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
 
     public void Move()
     {
-        _rigidbody.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
+        _rigidbody2D.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
     }
 
     public void Rotate()
@@ -49,12 +49,12 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
         Vector3 mousePos = Input.mousePosition;
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
 
-        mousePos.x = mousePos.x - objectPos.x;
-        mousePos.y = mousePos.y - objectPos.y;
+        mousePos.x -= objectPos.x;
+        mousePos.y -= objectPos.y;
 
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        _rigidbody.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        _rigidbody2D.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 }

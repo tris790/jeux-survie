@@ -15,8 +15,6 @@ public class GameManager : Singleton<GameManager>
 
     void Awake()
     {
-        base.Awake();
-
         _currentPlayerModel = playerModels[0];
         _currentPlayerModel.SetActive(true);
 
