@@ -6,8 +6,12 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public Vector2 Position => GetComponent<Rigidbody2D>().position;
 
+    // Components
     private MovementComponent _movementComponent;
+    private InputComponent _input;
+    private PlayerWeapon _playerWeapon;
     private HealthComponent _healthComponent;
+    private Rigidbody2D _rig;
 
     public void DealDamageToPlayer(int value)
     {
@@ -17,9 +21,17 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _movementComponent = GetComponent<MovementComponent>();
+        _input = GetComponent<InputComponent>();
+        _rig = GetComponent<Rigidbody2D>();
+        _playerWeapon = GetComponentInChildren<PlayerWeapon>();
         _healthComponent = GetComponent<HealthComponent>();
 
+        _input.OnInventoryMoveRight += _playerWeapon.SwitchToRightWeapon;
+        _input.OnInventoryMoveLeft += _playerWeapon.SwitchToLeftWeapon;
+        _input.OnAttack += _playerWeapon.Use;
+
         _movementComponent.moveSpeed = moveSpeed;
+
         _healthComponent.OnDeathEvent += OnPlayerDeath;
     }
 
@@ -32,5 +44,16 @@ public class Player : MonoBehaviour
     {
         if (_healthComponent != null)
             _healthComponent.OnDeathEvent -= OnPlayerDeath;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("OnCollisionEnter2D");
+    }
+
+    void Update()
+    {
+        int x = Mathf.FloorToInt(transform.position.x);
+        int y = Mathf.FloorToInt(transform.position.y);
     }
 }

@@ -7,8 +7,9 @@ public class HealthComponent : MonoBehaviour
     public float CurrentHealth;
     public float MaxHealth;
     public event EventHandler OnDeathEvent;
+    public event Action<float> OnHealthChangedEvent = delegate {};
 
-    private GameObject _healthBarPrefab;
+    public GameObject _healthBarPrefab;
     private SpriteRenderer _spriteRenderer;
     private bool _isDirty = true;
 
@@ -25,6 +26,8 @@ public class HealthComponent : MonoBehaviour
             _healthBarPrefab.SetActive(false);
             OnDeathEvent.Invoke(this, EventArgs.Empty);
         }
+
+        OnHealthChangedEvent(CurrentHealth);
     }
 
     private void Awake()
