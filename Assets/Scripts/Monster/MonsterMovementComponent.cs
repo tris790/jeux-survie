@@ -8,8 +8,10 @@ public class MonsterMovementComponent : MonoBehaviour
     public bool isMoving;
     public float moveSpeed;
     public event Action<bool> AnimateMovement = delegate { };
+
     public Vector2 Position => transform.position;
     public Vector2 moveDirection;
+
     private Rigidbody2D _rigidbody;
         
     private void Awake()
@@ -26,14 +28,6 @@ public class MonsterMovementComponent : MonoBehaviour
     public void Move()
     {
         _rigidbody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-    }
-
-    private void Start()
-    {
-    }
-
-    private void Update()
-    {
     }
 
     private void FixedUpdate()

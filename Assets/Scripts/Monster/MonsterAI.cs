@@ -17,35 +17,36 @@ public class MonsterAI : MonoBehaviour
     public float attackRange;
     public MonsterState state = MonsterState.Roaming;
     public MonsterMovementComponent _movementComponent;
-    public Player playerEntity;
     public float aiInterval = 0.5f;
     public SpriteRenderer sprite;
+    public int damage = 5;
 
-    void Start()
-    {
-        //InvokeRepeating(nameof(AILoop), aiInterval, aiInterval);
-    }
+    public MovementComponent targetMovementComponent;
+    public HealthComponent targetHealthComponent;
 
-    void Update()
+    private void Start()
     {
-        
+        InvokeRepeating(nameof(AILoop), aiInterval, aiInterval);
     }
 
     private void FixedUpdate()
     {
-        AILoop();
+        RotateTowardPlayer();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        state = MonsterState.Attacking;
-        Debug.Log("Trigger1");
+        if (collision.CompareTag("Player"))
+        {
+            targetMovementComponent = collision.gameObject.GetComponent<MovementComponent>();
+            targetHealthComponent = collision.gameObject.GetComponent<HealthComponent>();
+            state = MonsterState.Attacking;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         state = MonsterState.Following;
-        Debug.Log("Stop trigger2");
     }
 
     private void AILoop()
@@ -66,7 +67,6 @@ public class MonsterAI : MonoBehaviour
                 {
                     sprite.color = Color.green;
                     MoveTowardPlayer();
-                    RotateTowardPlayer();
                     break;
                 }
             case MonsterState.Attacking:
@@ -74,7 +74,6 @@ public class MonsterAI : MonoBehaviour
                     sprite.color = Color.red;
                     StopMoving();
                     Attack();
-                    RotateTowardPlayer();
                     break;
                 }
             default:
@@ -84,6 +83,8 @@ public class MonsterAI : MonoBehaviour
 
     private void Attack()
     {
+        if (targetHealthComponent)
+            targetHealthComponent.AddOrRemove(-damage);
     }
 
     private void Awake()
@@ -93,18 +94,30 @@ public class MonsterAI : MonoBehaviour
 
     private void RotateTowardPlayer()
     {
-        float angle = Mathf.Atan2(playerEntity.position.y -_movementComponent.Position.y, playerEntity.position.x -_movementComponent.Position.x) * Mathf.Rad2Deg;
-        var quaternionAngle = Quaternion.Euler(new Vector3(0, 0, angle));
-        _movementComponent.Rotate(quaternionAngle);
+        if (_movementComponent != null && targetMovementComponent != null)
+        {
+            float angle = Mathf.Atan2(
+                targetMovementComponent.transform.position.y - _movementComponent.Position.y,
+                targetMovementComponent.transform.position.x - _movementComponent.Position.x) * Mathf.Rad2Deg;
+
+            var quaternionAngle = Quaternion.Euler(new Vector3(0, 0, angle));
+            _movementComponent.Rotate(quaternionAngle);
+        }
     }
 
     private void StopMoving()
     {
-        _movementComponent.moveDirection = new Vector2();
+        if (_movementComponent != null)
+            _movementComponent.moveDirection = new Vector2();
     }
 
     private void MoveTowardPlayer()
     {
-        _movementComponent.moveDirection = new Vector2(playerEntity.position.x - _movementComponent.Position.x, playerEntity.position.y - _movementComponent.Position.y);
+        if (_movementComponent != null && targetMovementComponent != null)
+        {
+            _movementComponent.moveDirection = new Vector2(
+                targetMovementComponent.transform.position.x - _movementComponent.Position.x,
+                targetMovementComponent.transform.position.y - _movementComponent.Position.y);
+        }
     }
 }

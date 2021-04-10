@@ -3,24 +3,34 @@
 [AddComponentMenu("Player/Player")]
 public class Player : MonoBehaviour, IPositionInWorld
 {
-    // TODO : EGC add this in a stats class
     public float moveSpeed;
-
-    // Components
-    private MovementComponent _movement;
     public Vector2 position;
+
+    private MovementComponent _movementComponent;
+    private HealthComponent _healthComponent;
+
+    public void DealDamageToPlayer(int value)
+    {
+        _healthComponent.AddOrRemove(-value);
+    }
 
     private void Update()
     {
-        position = _movement.rigidbody.position;
+        position = _movementComponent.rigidbody.position;
     }
 
-    // Is called after all objects are initialized
     private void Awake()
     {
-        _movement = GetComponent<MovementComponent>();
+        _movementComponent = GetComponent<MovementComponent>();
+        _healthComponent = GetComponent<HealthComponent>();
 
-        _movement.moveSpeed = moveSpeed;
-        position = _movement.rigidbody.position;
+        _movementComponent.moveSpeed = moveSpeed;
+        position = _movementComponent.rigidbody.position;
+        _healthComponent.OnDeathEvent += OnPlayerDeath;
+    }
+
+    private void OnPlayerDeath(object sender, System.EventArgs e)
+    {
+        Debug.Log("The player died");
     }
 }

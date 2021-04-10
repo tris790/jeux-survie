@@ -9,7 +9,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     private List<GameObject> _pooledObjects;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Initialize()
     {
         _pooledObjects = new List<GameObject>();
 
@@ -26,7 +26,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public GameObject GetNextPooledObjectByTag(string tag)
     {
-        GameObject item = _pooledObjects.Find(i => i.tag == tag && !i.activeInHierarchy);
+        GameObject item = _pooledObjects.Find(i => i.CompareTag(tag) && !i.activeInHierarchy);
 
         if (item == null)
         {
