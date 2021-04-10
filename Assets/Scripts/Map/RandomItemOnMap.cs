@@ -29,12 +29,8 @@ public class RandomItemOnMap : MonoBehaviour
         {
             foreach (Vector2 point in points)
             {
-                Sprite po = Sprite.Create(heart, new Rect(0, 0, heart.width, heart.height), new Vector2(heart.width/2,heart.height/2),100);
-
-                //GameObject.CreatePrimitive(PrimitiveType.);
-                //srHeart.sprite = po;
-                //srHeart.transform.position = new Vector3(position.x+point.x- regionSize.x/2, position.y+point.y- regionSize.y/2, 0);
-                //po.transform.eulerAngles=new Vector3(-90,0,0);
+                //code popant les item sur la carte depuis une liste prochain pr
+                
             }
         }
     }
