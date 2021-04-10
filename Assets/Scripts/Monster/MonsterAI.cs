@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum MonsterState
 {
@@ -35,10 +32,10 @@ public class MonsterAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("CurrentPlayerModel"))
         {
-            player = collision.gameObject.GetComponent<Player>();
-            targetHealthComponent = collision.gameObject.GetComponent<HealthComponent>();
+            player = collision.gameObject.GetComponentInParent<Player>();
+            targetHealthComponent = player.GetComponent<HealthComponent>();
             state = MonsterState.Attacking;
         }
     }

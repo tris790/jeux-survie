@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Chunk
+  - PlayerWeapon
+  - PistolBullet
+  - CurrentPlayerModel
+  - PlayerFirePoint
   - HealthBarMonster
   layers:
   - Default
