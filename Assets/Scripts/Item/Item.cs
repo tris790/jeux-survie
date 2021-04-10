@@ -2,9 +2,15 @@
 
 public enum ItemType { Consumable, Weapon };
 
+public enum ItemId
+{
+    Pistol,
+    Ak
+}
+
 public abstract class Item : ScriptableObject
 {
-    public string itemID;
+    public ItemId itemId;
     public string itemName;
     [TextArea]
     public string itemDescription;

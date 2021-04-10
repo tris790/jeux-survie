@@ -20,7 +20,7 @@ public class PlayerWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _currentWeapon = Database.Instance.GetWeaponById("WP0000");
+        _currentWeapon = Database.Instance.GetWeaponById(ItemId.Pistol);
         _firePoint = GameObject.FindGameObjectWithTag("PlayerFirePoint").transform;
         next = 0.0F;
     }
@@ -33,7 +33,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         GameManager.Instance.ChangePlayerModel(_currentWeaponInventoryId);
-        _currentWeapon = Database.Instance.GetWeaponById("WP000" + _currentWeaponInventoryId.ToString());
+        _currentWeapon = Database.Instance.GetWeaponById(ItemId.Ak);
         _firePoint = GetCurrentFirePoint();
     }
 
@@ -45,7 +45,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         GameManager.Instance.ChangePlayerModel(_currentWeaponInventoryId);
-        _currentWeapon = Database.Instance.GetWeaponById("WP000" + _currentWeaponInventoryId.ToString());
+        _currentWeapon = Database.Instance.GetWeaponById(ItemId.Pistol);
         _firePoint = GetCurrentFirePoint();
     }
 

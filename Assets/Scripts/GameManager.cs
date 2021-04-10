@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
 
     private GameObject _currentPlayerModel;
 
-    void Awake()
+    public override void Initialize()
     {
         _currentPlayerModel = playerModels[0];
         _currentPlayerModel.SetActive(true);

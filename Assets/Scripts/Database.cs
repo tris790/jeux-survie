@@ -5,8 +5,8 @@ public class Database : Singleton<Database>
 {
     public List<WeaponItem> weaponItems = new List<WeaponItem>();
 
-    public WeaponItem GetWeaponById(string weaponId)
+    public WeaponItem GetWeaponById(ItemId weaponId)
     {
-        return weaponItems.FirstOrDefault(w => w.itemID == weaponId);
+        return weaponItems.FirstOrDefault(w => w.itemId == weaponId);
     }
 }

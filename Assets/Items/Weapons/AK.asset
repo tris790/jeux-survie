@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d22ba4537e7ef488dc36e8e89105b4, type: 3}
   m_Name: AK
   m_EditorClassIdentifier: 
-  itemID: WP0001
+  itemId: 1
   itemName: AK
   itemDescription: AK
   itemIcon: {fileID: 0}
