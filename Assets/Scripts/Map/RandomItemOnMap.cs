@@ -12,6 +12,7 @@ public class RandomItemOnMap : MonoBehaviour
     public float displayRadius = 1;
     Texture2D heart;
     SpriteRenderer srHeart;
+    public List<Item> items;
 
     List<Vector2> points;
 
