@@ -49,6 +49,7 @@ public class HealthComponent : MonoBehaviour
 
     private void OnDestroy()
     {
-        _healthBarPrefab.SetActive(false);
+        if (_healthBarPrefab != null)
+            _healthBarPrefab.SetActive(false);
     }
 }
