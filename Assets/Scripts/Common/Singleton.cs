@@ -44,4 +44,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
             Destroy(gameObject);
         }
     }
+
+    public virtual void Init()
+    {
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[AddComponentMenu("Controllers/Camera Controller")]
 public class CameraController : MonoBehaviour
 {
     private Camera _camera;

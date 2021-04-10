@@ -12,11 +12,22 @@ public class PlayerAnimationComponent : MonoBehaviour
         _anim = GetComponent<Animator>();
 
         // Subscribe to MovementComponents AnimateMovement delegate
-        GetComponent<MovementComponent>().AnimateMovement += AnimateMovement;
+        this.transform.parent.GetComponent<MovementComponent>().AnimateMovement += AnimateMovement;
+        this.transform.parent.GetComponent<InputComponent>().OnAttack += AnimateAttack;
     }
 
     void AnimateMovement(bool isMoving)
     {
         _anim.SetBool("moving", isMoving);
+    }
+
+    void AnimateAttack()
+    {
+        _anim.SetTrigger("fire");
+    }
+
+    public void Animate()
+    {
+        this.transform.parent.GetComponent<MovementComponent>().AnimateMovement += AnimateMovement;
     }
 }

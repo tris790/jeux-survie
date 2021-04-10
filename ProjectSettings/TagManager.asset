@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Chunk
+  - PlayerWeapon
+  - PistolBullet
+  - CurrentPlayerModel
+  - PlayerFirePoint
   layers:
   - Default
   - TransparentFX
