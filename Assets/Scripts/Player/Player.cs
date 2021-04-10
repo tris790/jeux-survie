@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [AddComponentMenu("Player/Player")]
-public class Player : MonoBehaviour, IPositionInWorld
+public class Player : MonoBehaviour
 {
     public float moveSpeed;
     public Vector2 Position => GetComponent<Rigidbody2D>().position;
