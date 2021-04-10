@@ -4,7 +4,7 @@
 public class Player : MonoBehaviour, IPositionInWorld
 {
     public float moveSpeed;
-    public Vector2 position;
+    public Vector2 Position => GetComponent<Rigidbody2D>().position;
 
     private MovementComponent _movementComponent;
     private HealthComponent _healthComponent;
@@ -14,18 +14,12 @@ public class Player : MonoBehaviour, IPositionInWorld
         _healthComponent.AddOrRemove(-value);
     }
 
-    private void Update()
-    {
-        position = _movementComponent.rigidbody.position;
-    }
-
     private void Awake()
     {
         _movementComponent = GetComponent<MovementComponent>();
         _healthComponent = GetComponent<HealthComponent>();
 
         _movementComponent.moveSpeed = moveSpeed;
-        position = _movementComponent.rigidbody.position;
         _healthComponent.OnDeathEvent += OnPlayerDeath;
     }
 

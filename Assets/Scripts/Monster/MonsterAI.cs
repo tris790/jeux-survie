@@ -21,7 +21,7 @@ public class MonsterAI : MonoBehaviour
     public SpriteRenderer sprite;
     public int damage = 5;
 
-    public MovementComponent targetMovementComponent;
+    public Player player;
     public HealthComponent targetHealthComponent;
 
     private void Start()
@@ -38,7 +38,7 @@ public class MonsterAI : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            targetMovementComponent = collision.gameObject.GetComponent<MovementComponent>();
+            player = collision.gameObject.GetComponent<Player>();
             targetHealthComponent = collision.gameObject.GetComponent<HealthComponent>();
             state = MonsterState.Attacking;
         }
@@ -94,11 +94,11 @@ public class MonsterAI : MonoBehaviour
 
     private void RotateTowardPlayer()
     {
-        if (_movementComponent != null && targetMovementComponent != null)
+        if (_movementComponent != null && player != null)
         {
             float angle = Mathf.Atan2(
-                targetMovementComponent.transform.position.y - _movementComponent.Position.y,
-                targetMovementComponent.transform.position.x - _movementComponent.Position.x) * Mathf.Rad2Deg;
+                player.Position.y - _movementComponent.Position.y,
+                player.Position.x - _movementComponent.Position.x) * Mathf.Rad2Deg;
 
             var quaternionAngle = Quaternion.Euler(new Vector3(0, 0, angle));
             _movementComponent.Rotate(quaternionAngle);
@@ -113,11 +113,11 @@ public class MonsterAI : MonoBehaviour
 
     private void MoveTowardPlayer()
     {
-        if (_movementComponent != null && targetMovementComponent != null)
+        if (_movementComponent != null && player != null)
         {
             _movementComponent.moveDirection = new Vector2(
-                targetMovementComponent.transform.position.x - _movementComponent.Position.x,
-                targetMovementComponent.transform.position.y - _movementComponent.Position.y);
+                player.Position.x - _movementComponent.Position.x,
+                player.Position.y - _movementComponent.Position.y);
         }
     }
 }
