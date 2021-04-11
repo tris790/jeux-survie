@@ -5,7 +5,8 @@ public enum ItemType { Consumable, Weapon };
 public enum ItemId
 {
     Pistol,
-    Ak
+    Ak,
+    TroussePS
 }
 
 public abstract class Item : ScriptableObject
