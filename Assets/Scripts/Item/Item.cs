@@ -6,7 +6,8 @@ public enum ItemId
 {
     Pistol,
     Ak,
-    AkAmmo
+    AkAmmo,
+    TroussePS
 }
 
 public abstract class Item : ScriptableObject

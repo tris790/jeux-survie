@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [AddComponentMenu("Player/Player Weapon")]
 public class PlayerWeapon : MonoBehaviour
@@ -86,3 +86,4 @@ public class PlayerWeapon : MonoBehaviour
         return null;
     }
 }
+

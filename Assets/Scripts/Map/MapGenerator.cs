@@ -10,7 +10,8 @@ public class MapGenerator : MonoBehaviour
     public Noise.NormalizeMode normalizeMode;
 
     // Propriete de la map pouvant etre editer depuis l'editeur Unity
-    public int seed;
+    public static int mgseed = new System.Random().Next();
+    public int seed = mgseed;
     // Grandeur d'un chunk. Must be a multiple of 10
     public const int mapChunkSize = 40;
     [Min(1)]
