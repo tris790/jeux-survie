@@ -10,7 +10,7 @@ public class RandomItemOnMap : MonoBehaviour
     public Transform pos;
     public int rejectionSamples = 30;
     public float displayRadius = 1;
-    public List<PickableItem> items;
+    public List<GameObject> items;
 
     List<Vector2> points;
 
@@ -21,10 +21,10 @@ public class RandomItemOnMap : MonoBehaviour
         {
             foreach (Vector2 point in points)
             {
-               var index=Random.Range(0, items.Count);
-                var item =items[index];
+                var index = Random.Range(0, items.Count);
+                var item = items[index];
                 Vector2 instPoint = pos + point - regionSize / 2;
-                Instantiate(item.gameObject, new Vector3(instPoint.x, instPoint.y),new Quaternion());
+                Instantiate(item, new Vector3(instPoint.x, instPoint.y), new Quaternion());
             }
         }
     }

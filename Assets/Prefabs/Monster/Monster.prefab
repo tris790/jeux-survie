@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
-  moveSpeed: 1
+  moveSpeed: 4
   moveDirection: {x: 0, y: 0}
 --- !u!114 &1655585288171485934
 MonoBehaviour:
@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bcd0e80fe8ec9d46b5af362e3bcf1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 1
   aiInterval: 0.5
   sprite: {fileID: 3381953532126185843}
   damage: 5

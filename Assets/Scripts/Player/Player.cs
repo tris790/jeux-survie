@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [AddComponentMenu("Player/Player")]
 public class Player : MonoBehaviour
 {
     public float moveSpeed;
     public Vector2 Position => GetComponent<Rigidbody2D>().position;
+    public GameObject healthNotifier;
 
     // Components
     private MovementComponent _movementComponent;
@@ -33,6 +35,13 @@ public class Player : MonoBehaviour
         _movementComponent.moveSpeed = moveSpeed;
 
         _healthComponent.OnDeathEvent += OnPlayerDeath;
+        _healthComponent.OnHealthChangedEvent += OnHealthChanged;
+    }
+
+    void Update()
+    {
+        int x = Mathf.FloorToInt(transform.position.x);
+        int y = Mathf.FloorToInt(transform.position.y);
     }
 
     private void OnPlayerDeath(object sender, System.EventArgs e)
@@ -46,13 +55,8 @@ public class Player : MonoBehaviour
             _healthComponent.OnDeathEvent -= OnPlayerDeath;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    private void OnHealthChanged(float value)
     {
-    }
-
-    void Update()
-    {
-        int x = Mathf.FloorToInt(transform.position.x);
-        int y = Mathf.FloorToInt(transform.position.y);
+        healthNotifier.GetComponent<Text>().text = value.ToString();
     }
 }

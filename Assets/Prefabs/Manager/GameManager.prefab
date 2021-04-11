@@ -66,3 +66,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8cadba49b1d71ae4f98e137e8e4b3946, type: 2}
   ammoItems:
   - {fileID: 11400000, guid: c9b25b0aa59b3394dad36e737d836935, type: 2}
+  consumableItems:
+  - {fileID: 11400000, guid: 53113e9fac71ddc4bbf3647d0bd14a7a, type: 2}
