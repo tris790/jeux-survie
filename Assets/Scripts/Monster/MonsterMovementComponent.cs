@@ -30,6 +30,11 @@ public class MonsterMovementComponent : MonoBehaviour
         _rigidbody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
+    public void TeleportTo(Vector2 to)
+    {
+        _rigidbody.position = to;
+    }
+
     private void FixedUpdate()
     {
         Move();

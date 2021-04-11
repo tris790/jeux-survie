@@ -30,6 +30,11 @@ public class HealthComponent : MonoBehaviour
         OnHealthChangedEvent(CurrentHealth);
     }
 
+    public void Fill()
+    {
+        CurrentHealth = MaxHealth;
+    }
+
     private void Awake()
     {
         if (_healthBarPrefab == null)

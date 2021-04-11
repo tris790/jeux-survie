@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8288176679276557398}
   m_Layer: 0
   m_Name: Monster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,14 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bcd0e80fe8ec9d46b5af362e3bcf1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 5
   state: 1
-  _movementComponent: {fileID: 0}
   aiInterval: 0.5
   sprite: {fileID: 3381953532126185843}
   damage: 5
-  targetMovementComponent: {fileID: 0}
-  targetHealthComponent: {fileID: 0}
 --- !u!61 &3950970927378627807
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,3 +178,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 100
   MaxHealth: 100
+  _healthBarPrefab: {fileID: 0}

@@ -9,20 +9,44 @@ public enum MonsterState
 }
 
 [AddComponentMenu("Monster/Monster Ai")]
-public class MonsterAI : MonoBehaviour
+public class MonsterAI : MonoBehaviour, IInitialized
 {
     public MonsterState state = MonsterState.Roaming;
-    public MonsterMovementComponent _movementComponent;
     public float aiInterval = 0.5f;
     public SpriteRenderer sprite;
     public int damage = 5;
 
-    public Player player;
-    public HealthComponent targetHealthComponent;
+    private Player _player;
+    private HealthComponent _targetHealthComponent;
+    private MonsterMovementComponent _movementComponent;
+    private HealthComponent _healthComponent;
+
+    public void Initialize()
+    {
+        state = MonsterState.Roaming;
+        aiInterval = 0.5f;
+        damage = 5;
+
+        _healthComponent.Fill();
+        StopMoving();
+    }
 
     private void Start()
     {
         InvokeRepeating(nameof(AILoop), aiInterval, aiInterval);
+    }
+
+    private void Awake()
+    {
+        _movementComponent = GetComponent<MonsterMovementComponent>();
+        _healthComponent = GetComponent<HealthComponent>();
+        _healthComponent.OnDeathEvent += OnMonsterDeath;
+    }
+
+    private void OnMonsterDeath(object sender, System.EventArgs e)
+    {
+        Debug.Log("Monster died");
+        gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -34,8 +58,8 @@ public class MonsterAI : MonoBehaviour
     {
         if (collision.CompareTag("CurrentPlayerModel"))
         {
-            player = collision.gameObject.GetComponentInParent<Player>();
-            targetHealthComponent = player.GetComponent<HealthComponent>();
+            _player = collision.gameObject.GetComponentInParent<Player>();
+            _targetHealthComponent = _player.GetComponent<HealthComponent>();
             state = MonsterState.Attacking;
         }
     }
@@ -79,22 +103,17 @@ public class MonsterAI : MonoBehaviour
 
     private void Attack()
     {
-        if (targetHealthComponent)
-            targetHealthComponent.AddOrRemove(-damage);
-    }
-
-    private void Awake()
-    {
-        _movementComponent = GetComponent<MonsterMovementComponent>();
+        if (_targetHealthComponent)
+            _targetHealthComponent.AddOrRemove(-damage);
     }
 
     private void RotateTowardPlayer()
     {
-        if (_movementComponent != null && player != null)
+        if (_movementComponent != null && _player != null)
         {
             float angle = Mathf.Atan2(
-                player.Position.y - _movementComponent.Position.y,
-                player.Position.x - _movementComponent.Position.x) * Mathf.Rad2Deg;
+                _player.Position.y - _movementComponent.Position.y,
+                _player.Position.x - _movementComponent.Position.x) * Mathf.Rad2Deg;
 
             var quaternionAngle = Quaternion.Euler(new Vector3(0, 0, angle));
             _movementComponent.Rotate(quaternionAngle);
@@ -109,11 +128,11 @@ public class MonsterAI : MonoBehaviour
 
     private void MoveTowardPlayer()
     {
-        if (_movementComponent != null && player != null)
+        if (_movementComponent != null && _player != null)
         {
             _movementComponent.moveDirection = new Vector2(
-                player.Position.x - _movementComponent.Position.x,
-                player.Position.y - _movementComponent.Position.y);
+                _player.Position.x - _movementComponent.Position.x,
+                _player.Position.y - _movementComponent.Position.y);
         }
     }
 }
