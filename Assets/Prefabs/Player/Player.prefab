@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af6809e7c3a51b48b8e52dd0b73e2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 8
 --- !u!114 &1325144860979433787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc460f2297cad744aa9847b793f10ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AkRound: 100
+  AkRound: 20
   akRoundNotifier: {fileID: 0}
 --- !u!114 &1325144860979433784
 MonoBehaviour:
@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1514059805, guid: a00a25cb990cb1f40ac4e3b35aeea2c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.198
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 1514059805, guid: a00a25cb990cb1f40ac4e3b35aeea2c8, type: 3}
       propertyPath: m_LocalPosition.y

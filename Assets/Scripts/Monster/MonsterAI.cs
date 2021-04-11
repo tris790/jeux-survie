@@ -12,6 +12,7 @@ public enum MonsterState
 public class MonsterAI : MonoBehaviour, IInitialized
 {
     public MonsterState state = MonsterState.Roaming;
+
     public float aiInterval = 0.5f;
     public SpriteRenderer sprite;
     public int damage = 5;
@@ -54,9 +55,9 @@ public class MonsterAI : MonoBehaviour, IInitialized
         RotateTowardPlayer();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("CurrentPlayerModel"))
+        if (collision.gameObject.tag == "Player")
         {
             _player = collision.gameObject.GetComponentInParent<Player>();
             _targetHealthComponent = _player.GetComponent<HealthComponent>();
@@ -64,7 +65,7 @@ public class MonsterAI : MonoBehaviour, IInitialized
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         state = MonsterState.Following;
     }

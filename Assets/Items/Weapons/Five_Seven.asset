@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d22ba4537e7ef488dc36e8e89105b4, type: 3}
   m_Name: Five_Seven
   m_EditorClassIdentifier: 
-  itemID: WP0000
+  itemId: 0
   itemName: Five Seven
   itemDescription: The FN Five-seveN is a semi-automatic pistol.
   itemIcon: {fileID: 0}
-  type: 1
+  itemType: 0
   damage: 20
   fireRate: 0.25
-  bulletForce: 34
+  bulletForce: 30
   bulletTag: PistolBullet
+  bulletType: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03935a1692185d43b4f64b3fb817bda, type: 3}
+  m_Name: TroussePS
+  m_EditorClassIdentifier: 
+  itemId: 2
+  itemName: Trousse de premier soin
+  itemDescription: Donne 20
+  itemIcon: {fileID: 21300000, guid: f335cb81d96ad0349ac48454131a8808, type: 3}
+  itemType: 0
+  gameObject: {fileID: 2737246347943885386, guid: 48863c84fb9937142927bc8a37742f2f,
+    type: 3}
+  health: 20
