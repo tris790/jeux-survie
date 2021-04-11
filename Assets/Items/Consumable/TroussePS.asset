@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b03935a1692185d43b4f64b3fb817bda, type: 3}
+  m_Script: {fileID: 11500000, guid: b7f07e7032856bc4988bf8a7ed7ce9f1, type: 3}
   m_Name: TroussePS
   m_EditorClassIdentifier: 
-  itemId: 2
-  itemName: Trousse de premier soin
-  itemDescription: Donne 20
+  itemId: 3
+  itemName: Trousse
+  itemDescription: Trousse de vie
   itemIcon: {fileID: 21300000, guid: f335cb81d96ad0349ac48454131a8808, type: 3}
   itemType: 0
-  gameObject: {fileID: 2737246347943885386, guid: 48863c84fb9937142927bc8a37742f2f,
-    type: 3}
-  health: 20
+  consumeType: 0

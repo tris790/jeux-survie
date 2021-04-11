@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class AmmoItemBehaviour : MonoBehaviour
+public class HealthItemBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private AmmoItem _ammoItem;
+    private ConsumableItem _consumableItem;
 
     private SpriteRenderer spriteRender;
 
@@ -15,20 +15,14 @@ public class AmmoItemBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spriteRender.sprite = Database.Instance.GetAmmoItem(ItemId.AkAmmo).itemIcon;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        spriteRender.sprite = Database.Instance.GetConsumableItem(ItemId.TroussePS).itemIcon;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _ammoItem.Use();
+            _consumableItem.Use();
             spriteRender.gameObject.SetActive(false);
         }
     }

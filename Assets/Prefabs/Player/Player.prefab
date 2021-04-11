@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
+  healthNotifier: {fileID: 0}
 --- !u!114 &1325144860979433787
 MonoBehaviour:
   m_ObjectHideFlags: 0
