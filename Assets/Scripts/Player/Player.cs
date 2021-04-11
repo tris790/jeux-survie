@@ -3,17 +3,57 @@
 [AddComponentMenu("Player/Player")]
 public class Player : MonoBehaviour
 {
-    // TODO : EGC add this in a stats class
     public float moveSpeed;
+    public Vector2 Position => GetComponent<Rigidbody2D>().position;
 
     // Components
-    private MovementComponent _movement;
+    private MovementComponent _movementComponent;
+    private InputComponent _input;
+    private PlayerWeapon _playerWeapon;
+    private HealthComponent _healthComponent;
+    private Rigidbody2D _rig;
 
-    // Is called after all objects are initialized
+    public void DealDamageToPlayer(int value)
+    {
+        _healthComponent.AddOrRemove(-value);
+    }
+
     private void Awake()
     {
-        _movement = GetComponent<MovementComponent>();
+        _movementComponent = GetComponent<MovementComponent>();
+        _input = GetComponent<InputComponent>();
+        _rig = GetComponent<Rigidbody2D>();
+        _playerWeapon = GetComponentInChildren<PlayerWeapon>();
+        _healthComponent = GetComponent<HealthComponent>();
 
-        _movement.moveSpeed = moveSpeed;
+        _input.OnInventoryMoveRight += _playerWeapon.SwitchToRightWeapon;
+        _input.OnInventoryMoveLeft += _playerWeapon.SwitchToLeftWeapon;
+        _input.OnAttack += _playerWeapon.Use;
+
+        _movementComponent.moveSpeed = moveSpeed;
+
+        _healthComponent.OnDeathEvent += OnPlayerDeath;
+    }
+
+    private void OnPlayerDeath(object sender, System.EventArgs e)
+    {
+        Debug.Log("The player died");
+    }
+
+    private void OnDestroy()
+    {
+        if (_healthComponent != null)
+            _healthComponent.OnDeathEvent -= OnPlayerDeath;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("OnCollisionEnter2D");
+    }
+
+    void Update()
+    {
+        int x = Mathf.FloorToInt(transform.position.x);
+        int y = Mathf.FloorToInt(transform.position.y);
     }
 }

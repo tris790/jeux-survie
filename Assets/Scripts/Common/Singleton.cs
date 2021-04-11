@@ -43,5 +43,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
             // Destroy current instance because it must be a duplicate.
             Destroy(gameObject);
         }
+        Initialize();
     }
+
+    public virtual void Initialize() { }
 }

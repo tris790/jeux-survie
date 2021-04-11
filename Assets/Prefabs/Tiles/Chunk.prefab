@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6778333433525661906}
   - component: {fileID: 6778333433525661907}
   - component: {fileID: 6778333433525661916}
+  - component: {fileID: 947596000294209786}
   m_Layer: 0
   m_Name: Chunk
   m_TagString: Chunk
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6778333433525661917}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 178.32379, y: 212.29929, z: -16509.688}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 4, y: 0, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,3 +95,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &947596000294209786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6778333433525661917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f3c2385424bb2489c422249d12be29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 20.06
+  regionSize: {x: 40, y: 40}
+  pos: {fileID: 6778333433525661905}
+  rejectionSamples: 5
+  displayRadius: 1
+  items:
+  - {fileID: 11400000, guid: 53113e9fac71ddc4bbf3647d0bd14a7a, type: 2}
