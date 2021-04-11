@@ -11,7 +11,7 @@ public class ConsumableItem : Item
     {
         if (consumeType == ConsumableType.Health)
         {
-            int value = Random.Range(10, 20);
+            int value = Random.Range(3, 8);
             GameManager.Instance.player.GetComponent<HealthComponent>().AddOrRemove(value);
         }
     }

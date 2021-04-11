@@ -13,7 +13,7 @@ public class MonsterMovementComponent : MonoBehaviour
     public Vector2 moveDirection;
 
     private Rigidbody2D _rigidbody;
-        
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -27,7 +27,9 @@ public class MonsterMovementComponent : MonoBehaviour
 
     public void Move()
     {
-        _rigidbody.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+         moveDirection.Normalize();
+
+        _rigidbody.velocity = moveDirection * moveSpeed;
     }
 
     public void TeleportTo(Vector2 to)

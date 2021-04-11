@@ -11,12 +11,12 @@ public enum MonsterState
 [AddComponentMenu("Monster/Monster Ai")]
 public class MonsterAI : MonoBehaviour, IInitialized
 {
-    public MonsterState state = MonsterState.Roaming;
 
     public float aiInterval = 0.5f;
     public SpriteRenderer sprite;
     public int damage = 5;
 
+    private MonsterState _state;
     private Player _player;
     private HealthComponent _targetHealthComponent;
     private MonsterMovementComponent _movementComponent;
@@ -24,12 +24,14 @@ public class MonsterAI : MonoBehaviour, IInitialized
 
     public void Initialize()
     {
-        state = MonsterState.Roaming;
+        _state = MonsterState.Following;
         aiInterval = 0.5f;
         damage = 5;
 
         _healthComponent.Fill();
         StopMoving();
+
+        _player = GameManager.Instance.player.GetComponent<Player>();
     }
 
     private void Start()
@@ -59,20 +61,20 @@ public class MonsterAI : MonoBehaviour, IInitialized
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            _player = collision.gameObject.GetComponentInParent<Player>();
+            //_player = collision.gameObject.GetComponentInParent<Player>();
             _targetHealthComponent = _player.GetComponent<HealthComponent>();
-            state = MonsterState.Attacking;
+            _state = MonsterState.Attacking;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        state = MonsterState.Following;
+        _state = MonsterState.Following;
     }
 
     private void AILoop()
     {
-        switch (state)
+        switch (_state)
         {
             case MonsterState.Idle:
                 {
