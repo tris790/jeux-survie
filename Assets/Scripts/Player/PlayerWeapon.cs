@@ -55,11 +55,11 @@ public class PlayerWeapon : MonoBehaviour
         {
             next = Time.time + _currentWeapon.fireRate;
             GameObject bullet = ObjectPoolManager.Instance.GetNextPooledObjectByTag(_currentWeapon.bulletTag);
-            bullet.SetActive(true);
-            Inventory.Instance.Remove(_currentWeapon.bulletType, 1);
 
             if (bullet != null)
             {
+                Inventory.Instance.Remove(_currentWeapon.bulletType, 1);
+                bullet.GetComponent<Bullet>().Damage = _currentWeapon.damage;
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                 bullet.transform.position = _firePoint.position;
                 bullet.transform.rotation = _firePoint.rotation;

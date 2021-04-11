@@ -23,7 +23,6 @@ public class GameManager : Singleton<GameManager>
 
     public void ChangePlayerModel(int playerModelId)
     {
-        Debug.Log(playerModelId);
         _currentPlayerModel.SetActive(false);
         _currentPlayerModel = playerModels[playerModelId];
         _currentPlayerModel.SetActive(true);

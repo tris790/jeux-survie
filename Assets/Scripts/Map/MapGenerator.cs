@@ -105,7 +105,6 @@ public class MapGenerator : MonoBehaviour
             this.param2 = drawMode;
         }
     }
-
 }
 
 [Serializable]

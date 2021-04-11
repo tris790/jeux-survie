@@ -13,7 +13,7 @@ public class HealthComponent : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private bool _isDirty = true;
 
-    public void AddOrRemove(int amount)
+    public void AddOrRemove(float amount)
     {
         _isDirty = true;
         var newHp = CurrentHealth + amount;

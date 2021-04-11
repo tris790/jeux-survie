@@ -13,6 +13,7 @@ public class MonsterAI : MonoBehaviour
 {
     public MonsterState state = MonsterState.Roaming;
     public MonsterMovementComponent _movementComponent;
+    public HealthComponent _healthComponent;
     public float aiInterval = 0.5f;
     public SpriteRenderer sprite;
     public int damage = 5;
@@ -30,17 +31,17 @@ public class MonsterAI : MonoBehaviour
         RotateTowardPlayer();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("CurrentPlayerModel"))
+        if (collision.gameObject.tag == "Player")
         {
-            player = collision.gameObject.GetComponentInParent<Player>();
-            targetHealthComponent = player.GetComponent<HealthComponent>();
+            player = collision.gameObject.GetComponent<Player>();
+            targetHealthComponent = collision.gameObject.GetComponent<HealthComponent>();
             state = MonsterState.Attacking;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         state = MonsterState.Following;
     }

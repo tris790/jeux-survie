@@ -89,7 +89,7 @@ public class InfiniteTerrain : MonoBehaviour
         public void UpdateTerrainChunk(GameObject chunk, Vector2 coord, int size)
         {
             Vector2 pos = coord * size;
-            posv3.Set(pos.x, pos.y, 0);
+            posv3.Set(pos.x, pos.y, 200);
             chunk.transform.localScale = Vector3.one * size / 10.0f;
             chunk.transform.position = posv3;
             mapGenerator.RequestMapData(chunk, pos, OnMapDataReceived);
