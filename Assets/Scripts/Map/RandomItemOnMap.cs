@@ -10,43 +10,35 @@ public class RandomItemOnMap : MonoBehaviour
     public Transform pos;
     public int rejectionSamples = 30;
     public float displayRadius = 1;
-    public List<Item> items;
-    Texture2D heart;
-    SpriteRenderer srHeart;
+    public List<PickableItem> items;
 
     List<Vector2> points;
 
-    void Awake()
+    public void generateItem(Vector2 pos)
     {
-        heart = new Texture2D(10,10);
-        srHeart = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
-    }
-
-    public void generateItem()
-    {
-        points = generateDot();
+        points = generateDot(pos);
         if (points != null)
         {
             foreach (Vector2 point in points)
             {
-
-                //code popant les item sur la carte depuis une liste prochain pr
-                
+               var index=Random.Range(0, items.Count);
+                var item =items[index];
+                Vector2 instPoint = pos + point - regionSize / 2;
+                Instantiate(item.gameObject, new Vector3(instPoint.x, instPoint.y),new Quaternion());
             }
         }
     }
 
-    private List<Vector2> generateDot()
+    private List<Vector2> generateDot(Vector2 pos)
     {
-        Vector2 position = new Vector2(pos.transform.position.x, pos.transform.position.y);
-        int x = Mathf.RoundToInt(position.x / MapGenerator.mapChunkSize);
-        int y = Mathf.RoundToInt(position.y / MapGenerator.mapChunkSize);
-        return PoissonDiscSampling.GeneratePoints(radius, regionSize, position, (x + 1) + MapGenerator.mgseed * (y + 1), rejectionSamples);
+        int x = Mathf.RoundToInt(pos.x / MapGenerator.mapChunkSize);
+        int y = Mathf.RoundToInt(pos.y / MapGenerator.mapChunkSize);
+        return PoissonDiscSampling.GeneratePoints(radius, regionSize, (x + 1) + MapGenerator.mgseed * (y + 1), rejectionSamples);
     }
 
     void OnValidate()
     {
-        points = generateDot();
+        points = generateDot(pos.position);
     }
 
     void OnDrawGizmos()

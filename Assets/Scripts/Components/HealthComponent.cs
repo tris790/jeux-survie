@@ -19,6 +19,8 @@ public class HealthComponent : MonoBehaviour
         var newHp = CurrentHealth + amount;
         if (newHp < 0)
             newHp = 0;
+        if (newHp > MaxHealth)
+            newHp = MaxHealth;
 
         CurrentHealth = newHp;
         if (CurrentHealth == 0 && OnDeathEvent != null)
