@@ -57,7 +57,7 @@ public class MonsterAI : MonoBehaviour, IInitialized
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             _player = collision.gameObject.GetComponentInParent<Player>();
             _targetHealthComponent = _player.GetComponent<HealthComponent>();

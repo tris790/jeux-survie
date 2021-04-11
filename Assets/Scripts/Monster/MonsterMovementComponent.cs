@@ -33,6 +33,7 @@ public class MonsterMovementComponent : MonoBehaviour
     public void TeleportTo(Vector2 to)
     {
         _rigidbody.position = to;
+        transform.position = to;
     }
 
     private void FixedUpdate()
