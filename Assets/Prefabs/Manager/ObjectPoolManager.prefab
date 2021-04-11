@@ -44,15 +44,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToPool:
-  - amountToPool: 69
-    objectToPool: {fileID: 768344280911211414, guid: fa54f796db63fc4499b671ce200a5265,
+  - amountToPool: 9
+    objectToPool: {fileID: 6778333433525661917, guid: b911e7ac7a7cb514e92cd1b3cc9d5a01,
       type: 3}
     shouldExpand: 0
   - amountToPool: 100
     objectToPool: {fileID: 7125680006974152394, guid: c11482a5664320f49a4cf829794021e6,
       type: 3}
     shouldExpand: 0
-  - amountToPool: 69
-    objectToPool: {fileID: 6778333433525661917, guid: b911e7ac7a7cb514e92cd1b3cc9d5a01,
+  - amountToPool: 10
+    objectToPool: {fileID: 3381953532126185846, guid: 4456ba539fdfaa54bb36027758dcba2f,
       type: 3}
     shouldExpand: 0
