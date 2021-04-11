@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc460f2297cad744aa9847b793f10ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AkRound: 20
+  AkRound: 250
   akRoundNotifier: {fileID: 0}
 --- !u!114 &1325144860979433784
 MonoBehaviour:
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 100
   MaxHealth: 100
-  _healthBarPrefab: {fileID: 0}
+  healthBarPrefab: {fileID: 0}
 --- !u!1001 &726178391895724855
 PrefabInstance:
   m_ObjectHideFlags: 0

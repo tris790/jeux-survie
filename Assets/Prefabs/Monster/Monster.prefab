@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2849829652157236822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241897784025705447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9706e03b3162c3c42b57e21c72e51ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3381953532126185846
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +44,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.96, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1241897784025705465}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -135,13 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 1
-  _movementComponent: {fileID: 0}
-  _healthComponent: {fileID: 0}
   aiInterval: 0.5
   sprite: {fileID: 3381953532126185843}
   damage: 5
-  player: {fileID: 0}
-  targetHealthComponent: {fileID: 0}
 --- !u!61 &3950970927378627807
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,4 +191,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 100
   MaxHealth: 100
-  _healthBarPrefab: {fileID: 0}
+  healthBarPrefab: {fileID: 0}
+--- !u!1001 &1987686645550809201
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3381953532126185842}
+    m_Modifications:
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 768344280911211414, guid: fa54f796db63fc4499b671ce200a5265,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthBar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa54f796db63fc4499b671ce200a5265, type: 3}
+--- !u!1 &1241897784025705447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 768344280911211414, guid: fa54f796db63fc4499b671ce200a5265,
+    type: 3}
+  m_PrefabInstance: {fileID: 1987686645550809201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1241897784025705465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
+    type: 3}
+  m_PrefabInstance: {fileID: 1987686645550809201}
+  m_PrefabAsset: {fileID: 0}
