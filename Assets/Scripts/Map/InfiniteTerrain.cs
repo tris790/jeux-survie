@@ -39,23 +39,26 @@ public class InfiniteTerrain : MonoBehaviour
         int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / MapGenerator.mapChunkSize);
         int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / MapGenerator.mapChunkSize);
 
-        int currentWorldChunkCoordX = Mathf.RoundToInt(viewerPosition.x / MapGenerator.mapChunkSize)* MapGenerator.mapChunkSize;
-        int currentWorldChunkCoordY = Mathf.RoundToInt(viewerPosition.y / MapGenerator.mapChunkSize)* MapGenerator.mapChunkSize;
+        int currentWorldChunkCoordX = currentChunkCoordX * MapGenerator.mapChunkSize+ MapGenerator.mapChunkSize/2;
+        int currentWorldChunkCoordY = currentChunkCoordY * MapGenerator.mapChunkSize+ MapGenerator.mapChunkSize/2;
 
-        int xlocal = Mathf.RoundToInt(viewerPosition.x) - currentWorldChunkCoordX;
-        int ylocal = Mathf.RoundToInt(viewerPosition.y) - currentWorldChunkCoordY;
+        int xlocal = (currentWorldChunkCoordX-Mathf.RoundToInt(viewerPosition.x))/10;
+        int ylocal = (currentWorldChunkCoordY-Mathf.RoundToInt(viewerPosition.y))/10;
 
         Vector2 pos = new Vector2(currentChunkCoordX, currentChunkCoordY);
-        var chunk =terrainChunkDict[pos];
-        Renderer meshRenderer = chunk.GetComponent<Renderer>();
-        Texture2D tex = (Texture2D)meshRenderer.material.mainTexture;
-        if (tex!= null)
+       if (terrainChunkDict.Count > 0)
         {
-            var x = tex.GetPixel(xlocal, ylocal);
-            var regions = mapGenerator.regions;
-            var watercolor = regions[regions.Length - 1].color;
-            if (x == watercolor)
-                Debug.Log(x);
+            var chunk = terrainChunkDict[pos];
+            Renderer meshRenderer = chunk.GetComponent<Renderer>();
+            Texture2D tex = (Texture2D)meshRenderer.material.mainTexture;
+            if (tex != null)
+            {
+                var x = tex.GetPixel(xlocal, ylocal);
+                var regions = mapGenerator.regions;
+                var watercolor = regions[regions.Length - 1].color;
+                if (x == watercolor)
+                    Debug.Log(x);
+            }
         }
     }
 
