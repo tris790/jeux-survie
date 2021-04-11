@@ -19,6 +19,6 @@ MonoBehaviour:
   itemType: 0
   damage: 30
   fireRate: 0.1
-  bulletForce: 34
+  bulletForce: 30
   bulletTag: PistolBullet
   bulletType: 1

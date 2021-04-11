@@ -6,6 +6,7 @@ public enum ItemId
 {
     Pistol,
     Ak,
+    AkAmmo,
     TroussePS
 }
 

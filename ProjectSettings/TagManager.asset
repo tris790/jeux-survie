@@ -10,6 +10,8 @@ TagManager:
   - CurrentPlayerModel
   - PlayerFirePoint
   - HealthBarMonster
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX

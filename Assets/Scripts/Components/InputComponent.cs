@@ -21,13 +21,11 @@ public class InputComponent : MonoBehaviour
         if (scroll < 0f)
         {
             OnInventoryMoveLeft();
-            Debug.Log("scroll down");
         }
 
         if (scroll > 0f)
         {
             OnInventoryMoveRight();
-            Debug.Log("scroll up");
         }
 
         // Left mouse click 
