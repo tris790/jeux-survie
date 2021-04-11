@@ -64,3 +64,5 @@ MonoBehaviour:
   weaponItems:
   - {fileID: 11400000, guid: 7d4a7ab49ba217e479b7a995611b4ded, type: 2}
   - {fileID: 11400000, guid: 8cadba49b1d71ae4f98e137e8e4b3946, type: 2}
+  ammoItems:
+  - {fileID: 11400000, guid: c9b25b0aa59b3394dad36e737d836935, type: 2}

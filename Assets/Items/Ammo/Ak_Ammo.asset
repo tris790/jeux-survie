@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475c8e7100a354e4190f7052bc69809f, type: 3}
   m_Name: Ak_Ammo
   m_EditorClassIdentifier: 
-  itemID: 
-  itemName: 
-  itemDescription: 
+  itemId: 2
+  itemName: Ak ammo
+  itemDescription: Ak ammo
   itemIcon: {fileID: 21300000, guid: 38ede01a2d121df4d8f33b71258ecc68, type: 3}
   itemType: 0
-  ammoType: 0
+  ammoType: 1

@@ -9,7 +9,7 @@ public class AmmoItem : Item
 
     public override void Use()
     {
-        int ammount = Random.Range(25, 225);
+        int ammount = Random.Range(25, 55);
         GameManager.Instance.player.GetComponent<Inventory>().AddItem(ammoType, ammount);
     }
 }

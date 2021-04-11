@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [AddComponentMenu("Player/Player Weapon")]
 public class PlayerWeapon : MonoBehaviour
@@ -59,6 +59,7 @@ public class PlayerWeapon : MonoBehaviour
             if (bullet != null)
             {
                 Inventory.Instance.Remove(_currentWeapon.bulletType, 1);
+                bullet.GetComponent<Bullet>().Damage = _currentWeapon.damage;
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                 bullet.transform.position = _firePoint.position;
                 bullet.transform.rotation = _firePoint.rotation;
@@ -85,3 +86,4 @@ public class PlayerWeapon : MonoBehaviour
         return null;
     }
 }
+
