@@ -12,6 +12,8 @@ TagManager:
   - HealthBarMonster
   - Wall
   - Enemy
+  - RespawnButton
+  - DeathScreen
   layers:
   - Default
   - TransparentFX

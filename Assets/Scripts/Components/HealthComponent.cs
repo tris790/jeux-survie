@@ -31,5 +31,6 @@ public class HealthComponent : MonoBehaviour
     public void Fill()
     {
         CurrentHealth = MaxHealth;
+        OnHealthChangedEvent(CurrentHealth);
     }
 }

@@ -26,7 +26,6 @@ public class MonsterAI : MonoBehaviour, IInitialized
     {
         _state = MonsterState.Following;
         aiInterval = 0.5f;
-        damage = 5;
 
         _healthComponent.Fill();
         StopMoving();
@@ -48,7 +47,6 @@ public class MonsterAI : MonoBehaviour, IInitialized
 
     private void OnMonsterDeath(object sender, System.EventArgs e)
     {
-        Debug.Log("Monster died");
         gameObject.SetActive(false);
     }
 
@@ -61,7 +59,6 @@ public class MonsterAI : MonoBehaviour, IInitialized
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //_player = collision.gameObject.GetComponentInParent<Player>();
             _targetHealthComponent = _player.GetComponent<HealthComponent>();
             _state = MonsterState.Attacking;
         }
@@ -78,23 +75,19 @@ public class MonsterAI : MonoBehaviour, IInitialized
         {
             case MonsterState.Idle:
                 {
-                    sprite.color = Color.white;
                     break;
                 }
             case MonsterState.Roaming:
                 {
-                    sprite.color = Color.blue;
                     break;
                 }
             case MonsterState.Following:
                 {
-                    sprite.color = Color.green;
                     MoveTowardPlayer();
                     break;
                 }
             case MonsterState.Attacking:
                 {
-                    sprite.color = Color.red;
                     StopMoving();
                     Attack();
                     break;

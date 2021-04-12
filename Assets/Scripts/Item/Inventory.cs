@@ -5,11 +5,13 @@ public class Inventory : Singleton<Inventory>
 {
     public int AkRound;
     public GameObject akRoundNotifier;
+    private int startAmmo;
 
     // Start is called before the first frame update
     void Start()
     {
         UpdateUi();
+        startAmmo = AkRound;
     }
 
     public int GetAmmoCount(AmmoType ammoType)
@@ -35,6 +37,12 @@ public class Inventory : Singleton<Inventory>
             AkRound += amount;
         }
 
+        UpdateUi();
+    }
+
+    public void Fill()
+    {
+        AkRound = startAmmo;
         UpdateUi();
     }
 

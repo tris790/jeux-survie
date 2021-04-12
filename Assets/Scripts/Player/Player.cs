@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDeath(object sender, System.EventArgs e)
     {
-        Debug.Log("The player died");
+        GameManager.Instance.GameOver();
     }
 
     private void OnDestroy()
