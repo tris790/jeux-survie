@@ -26,7 +26,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public GameObject GetNextPooledObjectByTag(string tag)
     {
-        GameObject item = _pooledObjects.Find(i => i.CompareTag(tag) && !i.activeInHierarchy);
+        GameObject item = _pooledObjects?.Find(i => i.CompareTag(tag) && !i.activeInHierarchy);
 
         if (item == null)
         {

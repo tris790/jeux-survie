@@ -88,7 +88,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b0927921f2b8d9e4ca7f2fdc727948f1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5a9888571a2521498a9a5f565889f99, type: 3}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiInterval: 0.5
   sprite: {fileID: 3381953532126185843}
-  damage: 5
+  damage: 10
 --- !u!61 &3950970927378627807
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.53, y: 2.16}
+    oldSize: {x: 2.79, y: 2.19}
     newSize: {x: 2.53, y: 2.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -216,7 +216,7 @@ PrefabInstance:
     - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 768344280911211400, guid: fa54f796db63fc4499b671ce200a5265,
         type: 3}

@@ -45,15 +45,11 @@ public class MonsterSpawner : MonoBehaviour
             .ToList();
 
         var actualSpawnCount = Mathf.Min(howManyMonstersToSpawn, spawnPositions.Count);
-        Debug.Log($"Trying to spawn {actualSpawnCount} monsters");
         for (int i = 0; i < actualSpawnCount; i++)
         {
             var monster = ObjectPoolManager.Instance.GetNextPooledObjectByTag("Enemy");
             if (monster == null)
-            {
-                Debug.Log($"Couldn't spawn a monster, {i}/{actualSpawnCount}");
                 break;
-            }
 
             monster.GetComponent<MonsterAI>().Initialize();
             monster.GetComponent<MonsterMovementComponent>().TeleportTo(spawnPositions[i]);

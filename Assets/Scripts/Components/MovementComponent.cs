@@ -44,6 +44,12 @@ public class MovementComponent : MonoBehaviour, IMoveable, IRotable
         _rigidbody2D.velocity = new Vector2(_moveDirection.x * moveSpeed, _moveDirection.y * moveSpeed);
     }
 
+    public void TeleportTo(Vector2 to)
+    {
+        _rigidbody2D.position = to;
+        transform.position = to;
+    }
+
     public void Rotate()
     {
         Vector3 mousePos = Input.mousePosition;
